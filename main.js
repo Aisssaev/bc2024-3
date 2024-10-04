@@ -19,7 +19,16 @@ if (!fs.existsSync(options.input)) {
 }
 
 try {
-    const data = 0;
+    try {
+        const data = JSON.parse(fs.readFileSync(options.input, 'utf8'));
+
+        const maxRate = Math.max(...data.map(item => item.rate));
+
+        var result = `Максимальний курс: ${maxRate}`;
+
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
 
     if (!options.input) {
         console.error('Please, specify input file');
